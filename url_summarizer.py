@@ -4,6 +4,11 @@ from bs4 import BeautifulSoup
 from text_summarizer import FrequencySummarizer
 import requests
 
+proxies = {
+  'http': 'http://128.230.146.100:3128/',
+  'https': 'http://128.230.146.100:3128/',
+}
+
 
 class URLSummarizer(object):
 
@@ -13,7 +18,7 @@ class URLSummarizer(object):
 		self.fs = FrequencySummarizer()
 
 	def getTextFromURL(self, url):
-		r = requests.get(url)
+		r = requests.get(url, proxies=proxies)
 		soup = BeautifulSoup(r.text, "html.parser")
 		self.page_title = soup.find("title").text
 		text = ' '.join(map(lambda p: p.text, soup.find_all('p')))
