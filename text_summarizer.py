@@ -61,5 +61,5 @@ class FrequencySummarizer:
     """ return the first n sentences with highest ranking """
     return nlargest(n, ranking, key=ranking.get)
 
-  def keywords(self):
-    return Counter(self._freq).most_common(10)
+  def keywords(self, num):
+    return Counter(self._freq).most_common(num)

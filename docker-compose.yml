@@ -1,0 +1,10 @@
+version: "2"
+
+services:
+  ist644:
+    restart: always
+    build: .
+    image: registry.ischool.syr.edu:5000/ndlyga/ist644:1.0
+    ports:
+      - 9000
+

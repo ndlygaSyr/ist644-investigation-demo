@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Webpage Summarizer</title>
+
+    <!-- Bootstrap -->
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <!-- font awesome -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <style>
+        .navbar-default {
+            height: 75px;
+        }
+        .navbar-header, .navbar-brand {
+            width: 100%;
+        }
+        .navbar-brand img {
+            margin-right: 15px;
+            border-right: 2px #e4e4e4 solid;
+            padding-right: 8px;
+        }
+        .navbar-brand span {
+            padding-top: 15px; 
+            display: block;
+        }
+    </style>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+
+    <!-- Static navbar -->
+    <nav class="navbar navbar-default navbar-static-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/"><img src="http://styleguide.ischool.syr.edu/img/logo-thumb-ischool-2017-fullcolor.png" class="pull-left" width="250"  /> 
+          <span>IST 644 / CIS 668 Application Investigation</span></a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+
+
+    <div class="container">
+
+      <!-- Main component for a primary marketing message or call to action -->
+      <div class="jumbotron">
+        <h1>Webpage Summarizer</h1>
+        <p>Please enter the url of the webpage that you would like to summarize. This will return a page summary and the
+            top used keywords of the page.
+        </p>
+        <p>
+            <form id="summaryForm" action="/summarize" method="post">
+                <div class="form-group"><label for="id_url" class="sr-only">Enter a url</label>
+                    <input id="id_url" type="text" class="form-control input-lg" placeholder="Please enter a url...." name="summary_url" />
+                </div>
+                <div class="row">
+                    <div class="form-group col-sm-3">
+                    <label for="id_sent_count" class="">Please choose how many sentences to return</label>
+                    <select name="sent_count" id="id_sent_count" class="form-control input-lg">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5" selected>5</option>
+                        <option value="10">10</option>
+                        <option value="15">15</option>
+                        <option value="20">20</option>
+                        <option value="25">25</option>
+                        <option value="30">30</option>
+                    </select>
+                </div>
+                </div>
+                 <button id="submitBtn" type="submit" class="btn btn-lg btn-primary">Summarize my page! »</button>
+            </form>
+        </p>
+      </div>
+
+      <div id="summaryArea" class="row hidden fade in">
+          <h2>Summary For:</h2>
+          <h3 id="pageTitle"></h3>
+          <div class="col-sm-8">
+              <div class="form-group">
+                  <label for="pageSummary" class="h4">Summary</label>
+                  <textarea id="pageSummary" class="form-control" cols="30" rows="10"></textarea>
+                </div>
+          </div>
+          <div class="col-sm-4">
+                <p class="h4">Keywords</p>
+                <ul class="list-group" id="pageKeyword">
+                
+                </ul>
+          </div>
+      </div>
+
+    </div> <!-- /container -->
+
+    <footer style="padding: 40px 0px;">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <p>IST 644 / CIS 668 Application Investigation</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script>
+        $(function() {
+            $("#summaryForm").submit(function() {
+                $("#submitBtn").prop("disabled", true).html('<i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>');
+                var url = $("#id_url").val();
+                var sents = $("#id_sent_count").val();
+                $("#pageKeyword").html("");
+                $.post("/summarize", {summary_url: url, sent_count: sents}, function(res) {
+                    $("#summaryArea").removeClass("hidden");
+                    $("#submitBtn").prop("disabled", false).html('Summarize my page! »');
+                    for (var i = 0 ; i < res.keywords.length ; i++) {
+                        $("#pageKeyword").append('<li class="list-group-item">' + res.keywords[i][0] + ':' + (res.keywords[i][1] * 100).toFixed(2).toString() + '%</li>');
+                    }
+                    $("#pageSummary").text(res.summary);
+                    $("#pageTitle").text(res.pageTitle);
+                });
+                return false;
+            })
+        });
+    </script>
+  </body>
+</html>
