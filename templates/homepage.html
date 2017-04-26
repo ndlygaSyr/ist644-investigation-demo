@@ -145,7 +145,7 @@
                     $("#summaryArea").removeClass("hidden");
                     $("#submitBtn").prop("disabled", false).html('Summarize my page! »');
                     for (var i = 0 ; i < res.keywords.length ; i++) {
-                        $("#pageKeyword").append('<li class="list-group-item">' + res.keywords[i][0] + ':' + (res.keywords[i][1] * 100).toFixed(2).toString() + '%</li>');
+                        $("#pageKeyword").append('<li class="list-group-item">' + res.keywords[i][0] + ':' + res.keywords[i][1].toFixed(2).toString() + '</li>');
                     }
                     $("#pageSummary").text(res.summary);
                     $("#pageTitle").text(res.pageTitle);
