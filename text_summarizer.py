@@ -14,30 +14,19 @@ class FrequencySummarizer:
     """
     self._min_cut = min_cut
     self._max_cut = max_cut 
+    
     self._stopwords = set(stopwords.words('english') + list(punctuation))
 
   def _compute_frequencies(self, word_sent):
     """ 
-      Compute the frequency of each of word.
-      Input: 
-       word_sent, a list of sentences already tokenized.
-      Output: 
-       freq, a dictionary where freq[w] is the frequency of w.
+      use nltk frequecy distrobution to get work
+      frequency of list of tokenized sentences
     """
-    freq = defaultdict()
-    for s in word_sent:
-      for word in s:
-        if word not in self._stopwords:
-          try:
-            freq[word] += 1
-          except KeyError:
-            freq[word] = 1
-    # frequencies normalization and fitering
-    m = float(max(freq.values()))
-    for w in list(freq.keys()):
-      freq[w] = freq[w]/m
-      if freq[w] >= self._max_cut or freq[w] <= self._min_cut:
-        del freq[w]
+    word_list = []
+    for ws in word_sent:
+      word_list += ws
+    word_list = [w for w in word_sent if s not in self._stopwords and len(w) < 3]
+    freq = nltk.FreqDist(word_list)
     return freq
 
   def summarize(self, text, n):
@@ -48,7 +37,9 @@ class FrequencySummarizer:
     sents = sent_tokenize(text)
     assert n <= len(sents)
     word_sent = [word_tokenize(s.lower()) for s in sents]
+    
     self._freq = self._compute_frequencies(word_sent)
+    
     ranking = defaultdict(int)
     for i,sent in enumerate(word_sent):
       for w in sent:
