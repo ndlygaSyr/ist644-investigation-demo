@@ -53,4 +53,4 @@ class FrequencySummarizer:
     return nlargest(n, ranking, key=ranking.get)
 
   def keywords(self, num):
-    return Counter(self._freq).most_common(num)
+    return self._freq.most_common(num)
